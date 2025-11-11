@@ -1,6 +1,7 @@
 package be.skenteridis.contactmanager.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
@@ -11,19 +12,19 @@ public class Contact {
     private Long id;
 
     @Column(name = "name", nullable = false)
-    @NotBlank
+    @NotBlank(message = "Name can't be empty!")
     private String name;
 
     @Column(name = "phone", nullable = false)
-    @NotBlank
-    private Integer phone;
+    @NotBlank(message = "Phone number cannot be empty!")
+    private String phone;
 
     @Column(name = "email", nullable = false, unique = true)
-    @NotBlank
+    @Email(message = "Must be a valid email!")
     private String email;
 
     public Contact() {}
-    public Contact(String name, Integer phone, String email) {
+    public Contact(String name, String phone, String email) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -41,11 +42,11 @@ public class Contact {
         this.name = name;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
